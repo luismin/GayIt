@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GAY IT!</title>
   <style>
-    /* Importamos una fuente más moderna desde Google Fonts */
+    /* Importamos una fuente moderna desde Google Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
     /* Estilos generales para el fondo y el contenido centrado */
     body {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
@@ -24,6 +25,8 @@
       background-position: center;   /* La imagen se centra */
       background-repeat: no-repeat;  /* Evita que la imagen se repita */
       background-attachment: fixed;  /* La imagen permanece fija al hacer scroll */
+      text-align: center;
+      padding: 20px;
     }
 
     h1 {
@@ -52,30 +55,17 @@
     #output {
       font-size: 1.8em;
       color: #ffffff;
-      text-align: center;
-      max-width: 80%;           /* Ancho máximo del texto */
-      word-wrap: break-word;     /* Permite que el texto se ajuste y rompa si es necesario */
+      max-width: 90vw;        /* Ocupa el 90% del ancho de la pantalla */
+      word-break: break-word; /* Permite que el texto se ajuste si es necesario */
+      line-height: 1.4;       /* Espacio entre líneas para legibilidad */
       margin-top: 20px;
-      line-height: 1.4;         /* Espacio entre líneas para mejorar la legibilidad */
-    }
-
-    /* Contenedor para centrar el contenido vertical y horizontalmente */
-    .container {
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente */
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;  /* Ancho del contenedor para dar más espacio al texto */
-      max-width: 800px; /* Limitar el ancho máximo del contenedor */
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>GAY IT!</h1>
-    <button id="generateBtn">Generar Frase</button>
-    <p id="output"></p>
-  </div>
+  <h1>GAY IT!</h1>
+  <button id="generateBtn">Generar Frase</button>
+  <p id="output"></p>
 
   <script>
     async function loadCSV() {
