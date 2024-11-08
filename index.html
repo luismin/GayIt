@@ -8,7 +8,7 @@
     /* Importamos una fuente más moderna desde Google Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
-    /* Estilos generales para centrar el contenido y mejorar la apariencia */
+    /* Estilos generales para el fondo y el contenido centrado */
     body {
       display: flex;
       align-items: center;
@@ -16,12 +16,19 @@
       height: 100vh;
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #f0f0f0;
+      color: #ffffff;
+
+      /* Imagen de fondo */
+      background-image: url('/holmes.jpg');
+      background-size: cover;       /* La imagen cubre toda la pantalla */
+      background-position: center;   /* La imagen se centra */
+      background-repeat: no-repeat;  /* Evita que la imagen se repita */
+      background-attachment: fixed;  /* La imagen permanece fija al hacer scroll */
     }
 
     h1 {
       font-size: 3em;
-      color: #ff4081;
+      color: #ffeb3b;
       text-align: center;
       margin: 0 0 20px;
     }
@@ -44,15 +51,22 @@
 
     #output {
       font-size: 1.8em;
-      color: #333;
+      color: #ffffff;
       text-align: center;
+      max-width: 80%;           /* Ancho máximo del texto */
+      word-wrap: break-word;     /* Permite que el texto se ajuste y rompa si es necesario */
       margin-top: 20px;
-      max-width: 80%;
+      line-height: 1.4;         /* Espacio entre líneas para mejorar la legibilidad */
     }
 
     /* Contenedor para centrar el contenido vertical y horizontalmente */
     .container {
       text-align: center;
+      background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente */
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;  /* Ancho del contenedor para dar más espacio al texto */
+      max-width: 800px; /* Limitar el ancho máximo del contenedor */
     }
   </style>
 </head>
@@ -92,6 +106,7 @@
 
       return columns;
     }
+
     function getRandomPhrase(columns) {
       const phrase = [];
       let colIndex = 1;
