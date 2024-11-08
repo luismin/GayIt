@@ -73,6 +73,12 @@
   </style>
 </head>
 <body>
+  <!-- Agregar música de fondo -->
+  <audio id="music" autoplay loop>
+    <source src="erika.mp3" type="audio/mp3">
+    Tu navegador no soporta la etiqueta de audio.
+  </audio>
+
   <div class="container">
     <h1>GAY IT!</h1>
     <button id="generateBtn">Generar Frase</button>
@@ -129,10 +135,5 @@
       document.getElementById('output').textContent = randomPhrase;
     });
   </script>
-
-  <audio id="music" autoplay loop controls>
-  <source src="erika.mp3" type="audio/mp3">
-  Tu navegador no soporta la etiqueta de audio.
-</audio>
 </body>
 </html>
