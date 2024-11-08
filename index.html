@@ -1,106 +1,59 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Frases Aleatorias desde CSV</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f3f4f6;
-        }
-        .container {
-            text-align: center;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            margin-top: 20px;
-        }
-        .phrase {
-            margin-top: 20px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Frases Aleatorias</title>
 </head>
 <body>
-    <h1>Generador de Frases Aleatorias desde CSV</h1>
-    <div class="container">
-        <button onclick="generatePhrase()">Generar Frase</button>
-        <p class="phrase" id="phrase">Aquí aparecerá tu frase</p>
-    </div>
+  <h1>Generador de Frases Aleatorias</h1>
+  <button id="generateBtn">Generar Frase</button>
+  <p id="output"></p>
 
-    <script>
-        let data = {
-            columna1: [],
-            columna2: [],
-            columna3: [],
-            columna4: [],
-            columna5: []
-        };
+  <script>
+    async function loadCSV() {
+      const response = await fetch('frases.csv');
+      const data = await response.text();
+      const rows = data.split('\n').map(row => row.split(','));
 
-        // Función para cargar el archivo CSV y llenar los datos
-        async function loadCSV() {
-            try {
-                const response = await fetch("frases.csv");
-                const text = await response.text();
-                parseCSV(text);
-            } catch (error) {
-                console.error("Error al cargar el archivo CSV:", error);
+      // Organizar columnas en un objeto
+      const columns = {};
+      for (let i = 0; i < rows[0].length; i++) {
+        columns[`columna${i + 1}`] = [];
+      }
+      
+      rows.forEach((row, rowIndex) => {
+        if (rowIndex > 0 && row.length > 1) { // Saltar la cabecera y filas vacías
+          row.forEach((cell, cellIndex) => {
+            if (columns[`columna${cellIndex + 1}`]) {
+              columns[`columna${cellIndex + 1}`].push(cell.trim());
             }
+          });
         }
+      });
 
-        function parseCSV(text) {
-            const lines = text.split("\\n");
-            const headers = lines[0].split(","); // suponiendo que la primera fila es la cabecera
+      return columns;
+    }
 
-            // Itera por cada fila y añade los datos a los arrays correspondientes
-            for (let i = 1; i < lines.length; i++) {
-                const row = lines[i].split(",");
-                for (let j = 0; j < headers.length; j++) {
-                    const column = headers[j].trim();
-                    if (data[column]) {
-                        data[column].push(row[j].trim());
-                    }
-                }
-            }
-        }
+    function getRandomPhrase(columns) {
+      let phrase = '';
+      let colIndex = 1;
 
-        function generatePhrase() {
-            if (data.columna1.length === 0) {
-                document.getElementById("phrase").innerText = "El archivo CSV aún no se ha cargado.";
-                return;
-            }
-            const part1 = data.columna1[Math.floor(Math.random() * data.columna1.length)];
-            const part2 = data.columna2[Math.floor(Math.random() * data.columna2.length)];
-            const part3 = data.columna3[Math.floor(Math.random() * data.columna3.length)];
-            const part4 = data.columna4[Math.floor(Math.random() * data.columna4.length)];
-            const part5 = data.columna5[Math.floor(Math.random() * data.columna5.length)];
+      while (columns[`columna${colIndex}`]) {
+        const phrases = columns[`columna${colIndex}`];
+        const randomIndex = Math.floor(Math.random() * phrases.length);
+        phrase += phrases[randomIndex] + ' ';
+        colIndex++;
+      }
 
-            // Generar la frase
-            const frase = `${part1} ${part2} ${part3} ${part4} ${part5}`;
-            document.getElementById("phrase").innerText = frase;
-        }
+      return phrase.trim();
+    }
 
-        // Llama a la función para cargar el CSV al iniciar la página
-        window.onload = loadCSV;
-    </script>
+    document.getElementById('generateBtn').addEventListener('click', async () => {
+      const columns = await loadCSV();
+      const randomPhrase = getRandomPhrase(columns);
+      document.getElementById('output').textContent = randomPhrase;
+    });
+  </script>
 </body>
 </html>
