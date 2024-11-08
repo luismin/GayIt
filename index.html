@@ -42,7 +42,6 @@
 </head>
 <body>
     <h1>Generador de Frases Aleatorias desde CSV</h1>
-    <input type="file" id="fileInput" accept=".csv" />
     <div class="container">
         <button onclick="generatePhrase()">Generar Frase</button>
         <p class="phrase" id="phrase">Aquí aparecerá tu frase</p>
@@ -57,23 +56,22 @@
             columna5: []
         };
 
-        document.getElementById("fileInput").addEventListener("change", function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const text = e.target.result;
-                    parseCSV(text);
-                };
-                reader.readAsText(file);
+        // Función para cargar el archivo CSV y llenar los datos
+        async function loadCSV() {
+            try {
+                const response = await fetch("frases.csv");
+                const text = await response.text();
+                parseCSV(text);
+            } catch (error) {
+                console.error("Error al cargar el archivo CSV:", error);
             }
-        });
+        }
 
         function parseCSV(text) {
             const lines = text.split("\\n");
-            const headers = lines[0].split(","); // assuming first row is header
+            const headers = lines[0].split(","); // suponiendo que la primera fila es la cabecera
 
-            // Iterate through each row and add data to corresponding arrays
+            // Itera por cada fila y añade los datos a los arrays correspondientes
             for (let i = 1; i < lines.length; i++) {
                 const row = lines[i].split(",");
                 for (let j = 0; j < headers.length; j++) {
@@ -87,7 +85,7 @@
 
         function generatePhrase() {
             if (data.columna1.length === 0) {
-                document.getElementById("phrase").innerText = "Carga un archivo CSV primero.";
+                document.getElementById("phrase").innerText = "El archivo CSV aún no se ha cargado.";
                 return;
             }
             const part1 = data.columna1[Math.floor(Math.random() * data.columna1.length)];
@@ -100,6 +98,9 @@
             const frase = `${part1} ${part2} ${part3} ${part4} ${part5}`;
             document.getElementById("phrase").innerText = frase;
         }
+
+        // Llama a la función para cargar el CSV al iniciar la página
+        window.onload = loadCSV;
     </script>
 </body>
 </html>
