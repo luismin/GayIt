@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Frases Aleatorias</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f3f4f6;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .phrase {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generador de Frases Aleatorias</h1>
+        <button onclick="generatePhrase()">Generar Frase</button>
+        <p class="phrase" id="phrase">Aquí aparecerá tu frase</p>
+    </div>
+
+    <script>
+        // Datos de la tabla con 5 columnas
+        const columna1 = ["El gato", "La luna", "Un niño", "Mi vecino"];
+        const columna2 = ["rápidamente", "suavemente", "con fuerza", "con entusiasmo"];
+        const columna3 = ["corre", "brilla", "salta", "duerme"];
+        const columna4 = ["sobre el tejado", "por el campo", "en el jardín", "en la noche"];
+        const columna5 = ["alegremente", "sin parar", "como un loco", "con elegancia"];
+
+        // Función para generar la frase aleatoria
+        function generatePhrase() {
+            const part1 = columna1[Math.floor(Math.random() * columna1.length)];
+            const part2 = columna2[Math.floor(Math.random() * columna2.length)];
+            const part3 = columna3[Math.floor(Math.random() * columna3.length)];
+            const part4 = columna4[Math.floor(Math.random() * columna4.length)];
+            const part5 = columna5[Math.floor(Math.random() * columna5.length)];
+            
+            // Generar la frase
+            const frase = `${part1} ${part2} ${part3} ${part4} ${part5}`;
+            
+            // Mostrar la frase en el HTML
+            document.getElementById("phrase").innerText = frase;
+        }
+    </script>
+</body>
+</html>
