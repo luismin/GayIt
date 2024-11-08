@@ -13,7 +13,12 @@
   <script>
     async function loadCSV() {
       const response = await fetch('frases.csv');
-      const data = await response.text();
+      let data = await response.text();
+
+      // Reemplazar cualquier ; que quede en el archivo por comas
+      data = data.replace(/;/g, ',');
+
+      // Dividir en filas y luego en columnas
       const rows = data.split('\n').map(row => row.split(','));
 
       // Organizar columnas en un objeto
@@ -36,7 +41,7 @@
     }
 
     function getRandomPhrase(columns) {
-      let phrase = [];
+      const phrase = [];
       let colIndex = 1;
 
       while (columns[`columna${colIndex}`]) {
@@ -46,14 +51,9 @@
         colIndex++;
       }
 
-      return phrase.join(' '); // Concatenar las frases con un espacio en lugar de ';'
+      return phrase.join(' '); // Concatenar las frases con un espacio
     }
 
     document.getElementById('generateBtn').addEventListener('click', async () => {
       const columns = await loadCSV();
-      const randomPhrase = getRandomPhrase(columns);
-      document.getElementById('output').textContent = randomPhrase;
-    });
-  </script>
-</body>
-</html>
+      const randomPhrase = getRandomPhrase(column
