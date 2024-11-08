@@ -3,12 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generador de Frases Aleatorias</title>
+  <title>GAY IT!</title>
+  <style>
+    /* Importamos una fuente más moderna desde Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+    /* Estilos generales para centrar el contenido y mejorar la apariencia */
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #ff4081;
+      text-align: center;
+      margin: 0 0 20px;
+    }
+
+    #generateBtn {
+      background-color: #ff4081;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.5em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    #generateBtn:hover {
+      background-color: #e91e63;
+    }
+
+    #output {
+      font-size: 1.8em;
+      color: #333;
+      text-align: center;
+      margin-top: 20px;
+      max-width: 80%;
+    }
+
+    /* Contenedor para centrar el contenido vertical y horizontalmente */
+    .container {
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-  <h1>Generador de Frases Aleatorias</h1>
-  <button id="generateBtn">Generar Frase</button>
-  <p id="output"></p>
+  <div class="container">
+    <h1>GAY IT!</h1>
+    <button id="generateBtn">Generar Frase</button>
+    <p id="output"></p>
+  </div>
 
   <script>
     async function loadCSV() {
@@ -56,4 +109,9 @@
 
     document.getElementById('generateBtn').addEventListener('click', async () => {
       const columns = await loadCSV();
-      const randomPhrase = getRandomPhrase(column
+      const randomPhrase = getRandomPhrase(columns);
+      document.getElementById('output').textContent = randomPhrase;
+    });
+  </script>
+</body>
+</html>
