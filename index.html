@@ -36,17 +36,17 @@
     }
 
     function getRandomPhrase(columns) {
-      let phrase = '';
+      let phrase = [];
       let colIndex = 1;
 
       while (columns[`columna${colIndex}`]) {
         const phrases = columns[`columna${colIndex}`];
         const randomIndex = Math.floor(Math.random() * phrases.length);
-        phrase += phrases[randomIndex] + ' ';
+        phrase.push(phrases[randomIndex]); // Agregar la frase sin punto y coma
         colIndex++;
       }
 
-      return phrase.trim();
+      return phrase.join(' '); // Concatenar las frases con un espacio en lugar de ';'
     }
 
     document.getElementById('generateBtn').addEventListener('click', async () => {
